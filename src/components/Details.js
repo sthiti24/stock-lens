@@ -2,15 +2,13 @@ import React,{useState,useEffect} from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import CandleChart from './CandleChart'
+import CompanyData from './CompanyData'
 
 
 export default function  Details(){
 
   const {symbol}= useParams()
  
-  // const [openPrice,setOpenprice] = useState([])
-  // const [highestPrice,setHighestprice] = useState([])
-  // const [lowestPrice,setLowestprice] = useState([])
   const [closePrice,setCloseprice] = useState([])
  
   const [time,setTime] = useState([])
@@ -46,7 +44,7 @@ export default function  Details(){
  }
  getData() 
  
-  },[symbol])
+  },[])
 
   const newArray = [];
 
@@ -61,10 +59,12 @@ console.log(newArray)
 
   return (
    <div>
-    <h1>stock Details of {symbol}</h1>
+    <h1>stock Details</h1>
     <div>
-      {time &&
-      <div> <CandleChart coordinates = {newArray} symbol = {symbol}/> </div>}
+      {time
+       &&<div> <CandleChart coordinates = {newArray} symbol = {symbol}/> </div>
+       }
+      {<CompanyData symbol={symbol}/>}
     </div>
     </div> 
   )

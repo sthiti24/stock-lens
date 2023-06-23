@@ -1,6 +1,7 @@
 import './App.css';
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
-import {Summary,Details} from "./pages"
+import Summary from './components/Summary';
+import Details from './components/Details';
 function App() {
 
   

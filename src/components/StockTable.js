@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { useState} from 'react';
+import { useState,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,23 +11,24 @@ const StockList = (props) => {
   const [stockPrices, setStockPrices] = useState({})
   const navigate = useNavigate()
  
-
-// console.log(props.symbol)
-
-  const getData = async()=>
-  { 
-    try{
-      const stockArray
-      = await axios.get(`https://finnhub.io/api/v1/quote?symbol=${props.symbol}&token=ci6vbfhr01quivobts8gci6vbfhr01quivobts90`)
-      // console.log(stockArray.data)
-      setStockPrices(stockArray.data)
-    }
-    catch(err){
-      console.error(err)
-    }
+  // console.log(props.symbol)
+  useEffect(()=>{
+    const getData = async()=>
+    { 
+      try{
+        const stockArray
+        = await axios.get(`https://finnhub.io/api/v1/quote?symbol=${props.symbol}&token=ci6vbfhr01quivobts8gci6vbfhr01quivobts90`)
   
-  }
-getData();
+        setStockPrices(stockArray.data)
+      }
+      catch(err){
+        console.error(err)
+      }
+    
+    }
+  getData();
+  },[])
+
 
 function handleNavigate(symbol){
     navigate(`details/${symbol}`)

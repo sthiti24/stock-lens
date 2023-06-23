@@ -1,27 +1,37 @@
 import React,{useState,useEffect} from 'react'
 import Select from'react-select'
-// import axios from 'axios'
-import StockTable from '../components/StockTable'
+import axios from 'axios'
+import StockTable from './StockTable'
 import { Table } from 'react-bootstrap'
 import CompanyList from './Data.js'
 
 export default function Summary(){
 
   const [companyNameList,setCompanyNameList] = useState([])
+  const [companySymbolList,setCompanySymbolList] = useState([])
   const [selectedOption, setSelectedOption] = useState();
-  const [addCompany,setAddCompany] = useState([]);
+  const [addCompany,setAddCompany] = useState( [] ||
+    // ["MICROSOFT CORP","APPLE INC","AMAZON.COM INC"] ||
+   localStorage.getItem("addCompany").split(",")
+   );
 
   
-  // const getCompanyName = async()=>{
+  // const getCompany = async()=>{
   //   try{
   //         const stockData =
   //          (await axios.get('https://finnhub.io/api/v1/stock/symbol?exchange=US&token=ci6vbfhr01quivobts8gci6vbfhr01quivobts90')).data
 
-  //          const companyNames = stockData.map((item)=>{
+  //          const companySymbol = stockData.map((item)=>{
   //           return item.symbol
   //          })
 
-  //         setCompanyNameList(companyNames)
+  //         setCompanyNameList(companySymbol)
+
+  //         const companyNames = stockData.map((item)=>{
+  //           return item.name
+  //          })
+
+  //         setCompanySymbolList(companyNames)
   //   }
   //   catch(err){
   //        console.err(err)
@@ -29,20 +39,34 @@ export default function Summary(){
   // }
 
   //  useEffect(()=>{
-  //     getCompanyName();
+  //     getCompany();
     
   //  },[])
 
-  console.log(CompanyList)
+  // console.log(CompanyList)
 
    useEffect(()=>{
     const companyNames = CompanyList.map((item)=>{
-      return item.symbol
+      return item.description
      })
 
     setCompanyNameList(companyNames)
+
+    const companySymbol = CompanyList.map((item)=>{
+      return item.symbol
+     })
+
+    setCompanySymbolList(companySymbol)
+
+    
+  
     
    },[])
+
+   useEffect(()=>
+   {
+    localStorage.setItem("addCompany",addCompany)
+   },[addCompany])
 
 
 
@@ -109,7 +133,7 @@ export default function Summary(){
         </thead>
         <tbody>
            {addCompany.map((item)=>{
-                  return   <StockTable symbol = {item}/>
+                  return   <StockTable symbol = {companySymbolList[companyNameList.indexOf(item)]}/>
            })}
            
         </tbody>
