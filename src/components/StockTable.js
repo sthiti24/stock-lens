@@ -40,7 +40,7 @@ function handleNavigate(symbol){
     key = {props.symbol}>
     <td>{props.symbol}</td>
     <td>{stockPrices.c}</td>
-    <td>{stockPrices.d}</td>
+    <td style={{color:stockPrices.d<0?"red":"green"}}>{stockPrices.d}</td>
     <td>{stockPrices.h}</td>
     <td>{stockPrices.l}</td>
     <td>{stockPrices.o}</td>

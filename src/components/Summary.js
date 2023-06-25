@@ -1,9 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import Select from'react-select'
-import axios from 'axios'
+// import axios from 'axios'
 import StockTable from './StockTable'
-import { Table } from 'react-bootstrap'
+import { Table,Image, Container,Button} from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import CompanyList from './Data.js'
+import LogoLight from '../images/logo-light.png'
+import LogoDark from '../images/logo-dark.png'
+import moon from '../images/moon.png'
+import sun from '../images/sun.png'
 
 export default function Summary(){
 
@@ -14,7 +19,7 @@ export default function Summary(){
     // ["MICROSOFT CORP","APPLE INC","AMAZON.COM INC"] ||
    localStorage.getItem("addCompany").split(",")
    );
-
+  const [theme,setTheme] = useState(true)//lighttheme-true
   
   // const getCompany = async()=>{
   //   try{
@@ -99,27 +104,52 @@ export default function Summary(){
       
   }
   return (
-    <div>Summary
+    <div style={{display:"flex",flexDirection:"column",
+                 position:"relative",alignItems:"center",width:"100%",height:"100%",
+                 backgroundColor:theme?"white":"#111111"}}>
 
-      <div className='searchBox'>
+     <button style={{position:"sticky",border:"2px solid black",
+                    height:"50px",width:"60px",border:"none",top:"10px",backgroundColor:theme?"white":"black",marginRight:"-90%"
+                    }}
+              onClick={()=>{setTheme(!theme)}}
+      ><img style={{position:"relative",height:"100%",width:"100%",borderRadius:"50%"}} src={theme?moon:sun} alt="theme"/></button>
+
+      <Image src = {theme?LogoLight:LogoDark} alt = "logo" xs = {6} md = {4} 
+      style={{height:"300px",width:"400px",position:"relative"}} 
+      fluid rounded/>
+
+      <Container className='searchBox' style={{position:"relative",width:"70%"}}  fluid>
         
-          <div className='dropdown'>
+          <div className='dropdown' style={{width:"100%",textAlign:"center"}}>
                 <Select 
                 options = {optionList}
                 placeholder = "Search company stock"
                 value = {selectedOption}
                 onChange={handleSelect}
                 isSearchable = {true}
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderColor: state.isFocused ? 'blue' : 'grey',
+                  }),
+                }}
                 />
-           </div>
+              </div> 
+         
+           <div style={{marginTop:"10px",
+                        display:"flex",flexDirection:"row",justifyContent:"space-evenly"}}>
+               <Button  variant = "primary" onClick = {()=>addSelectedCompany(selectedOption,addCompany)}
+                style={{width:"30%",boxShadow:"0 0 5px black"}}>Add</Button>
+               <Button  variant = "danger" onClick = {()=>removeSelectedCompany(selectedOption,addCompany)}
+               style={{width:"30%",boxShadow:"0 0 5px black"}}>Remove</Button>
+           </div> 
+      </Container>
 
-      <button onClick = {()=>addSelectedCompany(selectedOption,addCompany)}>Add</button>
-      <button onClick = {()=>removeSelectedCompany(selectedOption,addCompany)}>Remove</button>
-      
-      </div>
+      <div className='table' style={{marginTop:"20px"}}>
 
-      <div className='table'>
-      <Table striped bordered hover >
+      <Table variant = {theme?"":"dark"}
+      striped bordered hover
+       responsive= "md">
         <thead>
           <tr>
             <th>Symbol</th>

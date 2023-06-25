@@ -20,7 +20,7 @@ export default function CompanyData({symbol}){
               }
         }
         catch(err){
-             console.err(err)
+             console.error(err)
         }
       }
 
