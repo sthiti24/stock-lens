@@ -6,12 +6,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-const StockList = (props) => {
+const StockTable = (props) => {
 
   const [stockPrices, setStockPrices] = useState({})
   const navigate = useNavigate()
  
-  // console.log(props.symbol)
+  console.log(props.symbol)
   useEffect(()=>{
     const getData = async()=>
     { 
@@ -27,7 +27,7 @@ const StockList = (props) => {
     
     }
   getData();
-  },[])
+  },[props.symbol])
 
 
 function handleNavigate(symbol){
@@ -50,4 +50,5 @@ function handleNavigate(symbol){
   )
 }
 
-export default StockList;
+
+export default StockTable;

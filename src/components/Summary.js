@@ -15,9 +15,10 @@ export default function Summary(){
   const [companyNameList,setCompanyNameList] = useState([])
   const [companySymbolList,setCompanySymbolList] = useState([])
   const [selectedOption, setSelectedOption] = useState();
-  const [addCompany,setAddCompany] = useState( [] ||
-    // ["MICROSOFT CORP","APPLE INC","AMAZON.COM INC"] ||
-   localStorage.getItem("addCompany").split(",")
+  const [addCompany,setAddCompany] = useState(
+   (localStorage.getItem("addCompany").split(","))
+   ||
+ ( ["MICROSOFT CORP","APPLE INC","AMAZON.COM INC"] ) 
    );
   const [theme,setTheme] = useState(true)//lighttheme-true
   
@@ -70,6 +71,8 @@ export default function Summary(){
 
    useEffect(()=>
    {
+    console.log(localStorage.getItem("addCompany"))
+    console.log(addCompany)
     localStorage.setItem("addCompany",addCompany)
    },[addCompany])
 
