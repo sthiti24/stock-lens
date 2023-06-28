@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import CandleChart from './CandleChart'
 import CompanyData from './CompanyData'
+import moon from '../images/moon.png'
+import sun from '../images/sun.png'
 
 
 export default function  Details(){
@@ -12,6 +14,8 @@ export default function  Details(){
   const [closePrice,setCloseprice] = useState([])
  
   const [time,setTime] = useState([])
+
+  const [theme,setTheme] = useState(true)
  
 
   useEffect(()=>{
@@ -58,13 +62,21 @@ export default function  Details(){
 console.log(newArray)
 
   return (
-   <div>
-    <h1>stock Details</h1>
-    <div>
+   <div style={{display:"flex",flexDirection:"column",
+   alignItems:"center",justifyContent:"center",backgroundColor:theme?"white":"black"}}>
+
+    <button style={{position:"sticky",border:"2px solid black",
+                    height:"50px",width:"60px",border:"none",top:"10px",backgroundColor:theme?"white":"black",marginRight:"-90%"
+                    }}
+              onClick={()=>{setTheme(!theme)}}
+      ><img style={{position:"relative",height:"100%",width:"100%",borderRadius:"50%"}} src={theme?moon:sun} alt="theme"/></button>
+
+    <h1 style={{color:theme?"black":"white"}}>STOCK DETAILS</h1>
+    <div style={{position:"relative",width:"100%"}}>
       {time
-       &&<div> <CandleChart coordinates = {newArray} symbol = {symbol}/> </div>
+       &&<div style={{position:"relative",width:"100%"}}> <CandleChart coordinates = {newArray} symbol = {symbol}/> </div>
        }
-      {<CompanyData symbol={symbol}/>}
+      {<CompanyData symbol={symbol} theme={theme}/>}
     </div>
     </div> 
   )

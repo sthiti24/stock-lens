@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default function CompanyData({symbol}){
+export default function CompanyData({symbol,theme}){
 
 
    const [profile,setProfile] = React.useState({})
@@ -30,7 +30,8 @@ export default function CompanyData({symbol}){
 
    console.log("profile",profile)
   return (
-    <div className='row border bg-white rounded shadow-sm p-4 mt-5'>
+    <div className='row border rounded shadow-sm p-4 mt-5'
+    style={{color:theme?"black":"white",backgroundColor:theme?"white":"black"}}>
         <div className='col'>
             <div>
                 <span className='fw-bold'>name: </span>

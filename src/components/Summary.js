@@ -15,10 +15,8 @@ export default function Summary(){
   const [companyNameList,setCompanyNameList] = useState([])
   const [companySymbolList,setCompanySymbolList] = useState([])
   const [selectedOption, setSelectedOption] = useState();
-  const [addCompany,setAddCompany] = useState(
-   (localStorage.getItem("addCompany").split(","))
-   ||
- ( ["MICROSOFT CORP","APPLE INC","AMAZON.COM INC"] ) 
+  const [addCompany,setAddCompany] = useState([]
+//  ( ["MICROSOFT CORP","APPLE INC","AMAZON.COM INC"] ) 
    );
   const [theme,setTheme] = useState(true)//lighttheme-true
   
@@ -69,16 +67,6 @@ export default function Summary(){
     
    },[])
 
-   useEffect(()=>
-   {
-    console.log(localStorage.getItem("addCompany"))
-    console.log(addCompany)
-    localStorage.setItem("addCompany",addCompany)
-   },[addCompany])
-
-
-
-
    function handleSelect(data){
     setSelectedOption(data)
    }
@@ -108,7 +96,7 @@ export default function Summary(){
   }
   return (
     <div style={{display:"flex",flexDirection:"column",
-                 position:"relative",alignItems:"center",width:"100%",height:"100%",
+                 position:"relative",alignItems:"center",width:"100%",height:"100vh",
                  backgroundColor:theme?"white":"#111111"}}>
 
      <button style={{position:"sticky",border:"2px solid black",
@@ -166,14 +154,12 @@ export default function Summary(){
         </thead>
         <tbody>
            {addCompany.map((item)=>{
-                  return   <StockTable symbol = {companySymbolList[companyNameList.indexOf(item)]}/>
+                  return   <StockTable symbol = {companySymbolList[companyNameList.indexOf(item)]} theme={theme}/>
            })}
            
         </tbody>
         </Table>
       </div>
-      
-      
     </div>
   )
   }

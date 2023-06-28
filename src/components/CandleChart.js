@@ -19,10 +19,10 @@ export default function CandleChart({coordinates,symbol}){
                      data:coordinates}]
 
         return(
-            <div style={{height:"90vh", border:"2px solid blue"}}>
+            <div >
             <Chart options={options} series = {series}
-             type="area" width = "100%"
-             height="80%"/>
+             type="area" width = "100%" 
+             />
           </div>
         )
 }
