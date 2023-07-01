@@ -15,7 +15,7 @@ export default function  Details(){
  
   const [time,setTime] = useState([])
 
-  const [theme,setTheme] = useState(true)
+  const [theme,setTheme] = useState(localStorage.getItem("theme"))
  
 
   useEffect(()=>{
@@ -38,7 +38,7 @@ export default function  Details(){
       
         setCloseprice(candlesData.data.c)
         setTime(candlesData.data.t)
-         
+        console.log(theme) 
         
   }
   catch(err){
@@ -65,7 +65,7 @@ console.log(newArray)
    <div style={{display:"flex",flexDirection:"column",
    alignItems:"center",justifyContent:"center",backgroundColor:theme?"white":"black"}}>
 
-    <button style={{position:"sticky",border:"2px solid black",
+    <button style={{border:"2px solid black",
                     height:"50px",width:"60px",border:"none",top:"10px",backgroundColor:theme?"white":"black",marginRight:"-90%"
                     }}
               onClick={()=>{setTheme(!theme)}}

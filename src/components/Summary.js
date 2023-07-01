@@ -5,8 +5,8 @@ import StockTable from './StockTable'
 import { Table,Image, Container,Button} from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import CompanyList from './Data.js'
-import LogoLight from '../images/logo-light.png'
-import LogoDark from '../images/logo-dark.png'
+import LogoLight from '../images/logo-light1.png'
+import LogoDark from '../images/logo-dark1.png'
 import moon from '../images/moon.png'
 import sun from '../images/sun.png'
 
@@ -70,7 +70,9 @@ export default function Summary(){
    function handleSelect(data){
     setSelectedOption(data)
    }
-
+useEffect(()=>{
+  localStorage.setItem("theme",theme)
+},[theme])
 
   const optionList = companyNameList.map((item)=>{
     const obj = {value : item, label : item}
@@ -99,14 +101,15 @@ export default function Summary(){
                  position:"relative",alignItems:"center",width:"100%",height:"100vh",
                  backgroundColor:theme?"white":"#111111"}}>
 
-     <button style={{position:"sticky",border:"2px solid black",
-                    height:"50px",width:"60px",border:"none",top:"10px",backgroundColor:theme?"white":"black",marginRight:"-90%"
+     <button style={{border:"2px solid black",
+                    height:"50px",width:"60px",border:"none",top:"10px",backgroundColor:theme?"white":"black",
+                    marginRight:"-90%",marginBottom:"20px"
                     }}
               onClick={()=>{setTheme(!theme)}}
       ><img style={{position:"relative",height:"100%",width:"100%",borderRadius:"50%"}} src={theme?moon:sun} alt="theme"/></button>
 
       <Image src = {theme?LogoLight:LogoDark} alt = "logo" xs = {6} md = {4} 
-      style={{height:"300px",width:"400px",position:"relative"}} 
+      style={{height:"250px",width:"350px",position:"relative",marginBottom:"7px"}} 
       fluid rounded/>
 
       <Container className='searchBox' style={{position:"relative",width:"70%"}}  fluid>
@@ -154,7 +157,7 @@ export default function Summary(){
         </thead>
         <tbody>
            {addCompany.map((item)=>{
-                  return   <StockTable symbol = {companySymbolList[companyNameList.indexOf(item)]} theme={theme}/>
+                  return   <StockTable symbol = {companySymbolList[companyNameList.indexOf(item)]}/>
            })}
            
         </tbody>
