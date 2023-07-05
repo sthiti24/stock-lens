@@ -1,6 +1,7 @@
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import Summary from './components/Summary';
 import Details from './components/Details';
+import Footer from './components/Footer';
 function App() {
 
   
@@ -12,6 +13,7 @@ function App() {
           <Route path={`/details/:symbol`} element = {<Details />}/>
         </Routes>
      </BrowserRouter>
+     <Footer />
     </div>
   );
 }
